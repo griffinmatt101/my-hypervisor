@@ -24,6 +24,17 @@ bool vmx_support(void)
     /* INLINE ASSEMBLY */
     __asm__("mov $1, %rax"); //rax - 64 bit register
     __asm__("cpuid");
+    __asm__("mov %%ecx , % 0\n\t":"=r" (get_vmx_support));
+    vmx_bit = (get_vmx_support >> 5) & 1;
+
+    if(vmx_bit == 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
     
 
 }
